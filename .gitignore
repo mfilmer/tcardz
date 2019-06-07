@@ -1,0 +1,8 @@
+# Partial files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+
+# Final files
+*.pdf
