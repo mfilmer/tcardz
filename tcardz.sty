@@ -6,32 +6,35 @@
 
 
 % Define main tcard environment
-\newenvironment{tcard}[1][]{%
+\newenvironment{tcard}[1]{%
+	% Store tcard name
+	\newcommand\thistcard{#1}%
 	% Define tcard environment functions
-	%\newcommand\newtcardvar[1]{%
-	%	\expandafter\newcommand\csname #1\endcsname[1]%
-	%		{\expandafter\renewcommand\csname the#1\endcsname[1]{##1}}%
-	%	\expandafter\newcommand\csname the#1\endcsname{}}%
+	\newcommand\newtcardvar[2]{%
+		\expandafter\newcommand\csname ##1\endcsname[1]%
+			{\expandafter\renewcommand\csname the##1\endcsname{####1}}%
+		\expandafter\newcommand\csname the##1\endcsname{##2}}%
 
 	% Begin tikz drawing
 	\begin{tikzpicture}
 	% Load card initialization
-	\inittcard{#1}%
+	\inittcard{\thistcard}%
 }{%
-	\printtcard{#1}%
+	\printtcard{\thistcard}%
 	\end{tikzpicture}%
 }% Finish defining tcard environment
 
 
 % Define command to create a new card template
-\newcommand\newtcard[3]%
-	{\expandafter\newcommand\csname tcardinit##1\endcsname{#2}%
-	\expandafter\newcommand\csname tcarddisp##1\endcsname{#3}}%
+\newcommand\newtcard[3]{%
+	\expandafter\newcommand\csname tcardinit#1\endcsname{#2}%
+	\expandafter\newcommand\csname tcarddisp#1\endcsname{#3}%
+}%
 
 % Define command to create a new card template based on an existing template
-%\newcommand\expandtcard[4]%
-%	{\expandafter\newcommand\csname tcardinit#1\endcsname{\inittcard{#2}#3}%
-%	\expandafter\newcommand\csname tcarddisp#1\endcsname{\printtcard{#2}#4}}%
+\newcommand\expandtcard[4]%
+	{\expandafter\newcommand\csname tcardinit#1\endcsname{\inittcard{#2}#3}%
+	\expandafter\newcommand\csname tcarddisp#1\endcsname{\printtcard{#2}#4}}%
 
 % Commands to use those card templates
 \newcommand\inittcard[1]{\csname tcardinit#1\endcsname}%

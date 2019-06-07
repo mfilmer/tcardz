@@ -6,6 +6,13 @@
 
 \newtcard{full}{}{%
 	\useasboundingbox[clip] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
-	\draw[width=0.1in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);}%
+	\draw[line width=0.1in, rounded corners=0.2in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);}%
+
+\expandtcard{creature}{full}{%
+	\newtcardvar{name}{Joe}
+}{%
+\node at (0,0) {\thename};
+}
+
 
 \endinput
