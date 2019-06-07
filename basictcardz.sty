@@ -4,15 +4,24 @@
 % Load needed packages
 \RequirePackage{tcardz}
 
-\newtcard{full}{}{%
+% Basic poker sized card with a black border
+\newtcard{pokersize}{}{%
 	\useasboundingbox[clip] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
-	\draw[line width=0.1in, rounded corners=0.2in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);}%
+	\draw[line width=0.1in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
+	\draw[line width=0.1in, rounded corners=0.2in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
+}%
 
-\expandtcard{creature}{full}{%
-	\newtcardvar{name}{Joe}
+\expandtcard{creature}{pokersize}{%
+	\newtcardvar{name}{Joe}%
+	\newtcardvar{cost}{1}%
+	\newtcardvar{type}{Beast}%
+	\newtcardvar{abilities}{}%
 }{%
-\node at (0,0) {\thename};
-}
+	\draw[line width=0.025in,rounded corners=0.1in] (-1.15in,1.4in) rectangle (1.15in, 1.65in) node[midway] {\thename};
+	\path (-1.05in,1.4in) rectangle (1.05in, 1.65in) node[text width=2.1in, align=right, midway] {\thecost};
+	\draw (-1.1, -0.2) rectangle (1.1, 0.2) node[midway] {\thetype};
+	\draw (-1.1in, -0.3) rectangle (1.1in, -1.7) node[midway,text width=2.2in,draw=red] {\theabilities};
+}%
 
 
 \endinput
