@@ -1,0 +1,31 @@
+\NeedsTeXFormat{LaTeX2e}[2010/01/01]
+\ProvidesPackage{tsymbolz}[2019/06/07]
+
+\RequirePackage{tikz}
+
+\newsavebox{\@tmpxbox}
+\savebox{\@tmpxbox}{X}
+
+\newlength{\tsymbolsize}
+\setlength\tsymbolsize{\ht\@tmpxbox}
+
+\newcommand\setsymbolsize[1]{\setlength\tsymbolsize{#1}}
+\newcommand\setsymbolsizetofont{\savebox{\@tmpxbox}{X}\setlength\tsymbolsize{\ht\@tmpxbox}}
+
+\newcommand\symbolbox{\tikz[x=\tsymbolsize,y=\tsymbolsize] \fill (-0.5,-0.5) rectangle (0.5,0.5);}
+
+
+%%%%% Damage and Health Symbols %%%%%
+% Damage (Sword)
+\newcommand\damagesymbol%
+{\begin{tikzpicture}[x=0.0016\tsymbolsize,y=0.0016\tsymbolsize]
+\useasboundingbox (-0.5\tsymbolsize,-0.5\tsymbolsize) rectangle (0.5\tsymbolsize,0.5\tsymbolsize);
+\fill[shift={(117,-735)},rotate=45] (45,575.36215) -- ++(9,-9) -- ++(9,9) -- ++(117,0) 
+  -- ++(0,-90) -- ++(-9,-9) -- ++(9,-9) -- ++(45,0) -- ++(9,9) -- ++(-9,9) -- ++(0,81) 
+  -- ++(585,0) -- ++(45,36) -- ++(-45,36) -- ++(-585,0) -- ++(0,81) -- ++(9,9) -- ++(-9,9) 
+  -- ++(-45,0) -- ++(-9,-9) -- ++(9,-9) -- ++(0,-90) -- ++(-117,0) -- ++(-9,9) -- ++(-9,-9) -- ++(0,-54);
+\end{tikzpicture}}
+
+
+
+\endinput

@@ -4,23 +4,51 @@
 % Load needed packages
 \RequirePackage{tcardz}
 
-% Basic poker sized card with a black border
-\newtcard{pokersize}{}{%
-	\useasboundingbox[clip] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
-	\draw[line width=0.1in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
-	\draw[line width=0.1in, rounded corners=0.2in] (-1.25in,-1.75in) rectangle (1.25in,1.75in);%
+% Commands to set card size
+\newcommand\newcardsize[3]{%
+	\expandafter\newcommand\csname cardsize#1width\endcsname{#2}%
+	\expandafter\newcommand\csname cardsize#1height\endcsname{#3}%
 }%
+\newcommand\cardsize[1]{%
+	\renewcommand\cardwidth{\csname cardsize#1width\endcsname}%
+	\renewcommand\cardheight{\csname cardsize#1height\endcsname}%
+}%
+\newcardsize{poker}{2.5in}{3.5in}%
+\newcardsize{half}{1.625in}{2.5in}%
+
+% Most basic card. Defines a bounding box and clips to that bounding box
+\newtcard{basecard}{%
+	\newcommand\cardwidth{2.5in}%
+	\newcommand\cardheight{3.5in}%
+}{%
+	\useasboundingbox[clip] (-0.5*\cardwidth,-0.5*\cardheight) rectangle (0.5*\cardwidth,0.5*\cardheight);%
+}%
+
+
+% Basic poker sized card with a black border
+\expandtcard{pokersize}{basecard}{%
+}{%
+	\drawborder{0.05in}{0.1in}%
+}%
+
+% Basic mini American sized card with a black border
+\expandtcard{halfsize}{basecard}{%
+	\cardsize{half}%
+}{%
+	\drawborder{0.05in}{0.1in}%
+}%
+
 
 \expandtcard{creature}{pokersize}{%
 	\newtcardvar{name}{Joe}%
 	\newtcardvar{cost}{1}%
 	\newtcardvar{type}{Beast}%
-	\newtcardvar{abilities}{}%
+	\newadvtcardvar{abilities}{\vfill}{}{\vfill}%
 }{%
-	\draw[line width=0.025in,rounded corners=0.1in] (-1.15in,1.4in) rectangle (1.15in, 1.65in) node[midway] {\thename};
-	\path (-1.05in,1.4in) rectangle (1.05in, 1.65in) node[text width=2.1in, align=right, midway] {\thecost};
-	\draw (-1.1, -0.2) rectangle (1.1, 0.2) node[midway] {\thetype};
-	\draw (-1.1in, -0.3) rectangle (1.1in, -1.7) node[midway,text width=2.2in,draw=red] {\theabilities};
+	\draw[line width=0.025in,rounded corners=0.1in] (-1.15in,1.4in) rectangle (1.15in, 1.65in) node[midway] {\thename};%
+	\path (-1.05in,1.4in) rectangle (1.05in, 1.65in) node[text width=2.1in, align=right, midway] {\thecost};%
+	\draw (-1.1, -0.2) rectangle (1.1, 0.2) node[midway] {\thetype};%
+	\draw (-1.1in, -0.3) rectangle (1.1in, -1.6) node[midway,draw=red,text depth=0] {\begin{minipage}[b][1.3in][b]{2.2in}\theabilities\vskip0pt\end{minipage}};%
 }%
 
 

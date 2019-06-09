@@ -11,10 +11,26 @@
 	% Store tcard name
 	\newcommand\thistcard{#1}%
 	% Define tcard environment functions
+	% \newtcardvar{variable name}{default value}
 	\newcommand\newtcardvar[2]{%
-		\expandafter\newcommand\csname ##1\endcsname[1]%
-			{\expandafter\renewcommand\csname the##1\endcsname{####1}}%
-		\expandafter\newcommand\csname the##1\endcsname{##2}}%
+		\expandafter\newcommand\csname ##1\endcsname[1]{%
+			\expandafter\renewcommand\csname the##1\endcsname{####1}%
+		}%
+		\expandafter\newcommand\csname add##1\endcsname[1]{%
+			\expandafter\g@addto@macro\csname the##1\endcsname{####1}%
+		}%
+		\expandafter\newcommand\csname the##1\endcsname{##2}%
+	}%
+	% \newadvtcardvar{variable name}{default value}{prepend}{append}
+	\newcommand\newadvtcardvar[4]{%
+		\expandafter\newcommand\csname ##1\endcsname[1]{%
+			\expandafter\renewcommand\csname the##1\endcsname{####1}%
+		}%
+		\expandafter\newcommand\csname add##1\endcsname[1]{%
+			\expandafter\g@addto@macro\csname the##1\endcsname{##3####1##4}%
+		}%
+		\expandafter\newcommand\csname the##1\endcsname{##2}%
+	}%
 	%
 	% Begin tikz drawing
 	\begin{tikzpicture}[x=1in,y=1in,every node/.style={inner sep=0,outer sep=0}]%
@@ -33,13 +49,21 @@
 }%
 
 % Define command to create a new card template based on an existing template
-\newcommand\expandtcard[4]%
-	{\expandafter\newcommand\csname tcardinit#1\endcsname{\inittcard{#2}#3}%
+\newcommand\expandtcard[4]{%
+	\expandafter\newcommand\csname tcardinit#1\endcsname{\inittcard{#2}#3}%
 	\expandafter\newcommand\csname tcarddisp#1\endcsname{\printtcard{#2}#4}%
 }%
 
 % Commands to use those card templates
 \newcommand\inittcard[1]{\csname tcardinit#1\endcsname}%
 \newcommand\printtcard[1]{\csname tcarddisp#1\endcsname}%
+
+% Draw border around card. Specify border width and corner rounding radius.
+% Optional argument allows further customization by passing its contents through to the \fill command
+\newcommand\drawborder[3][]{%
+	\fill[even odd rule,#1] (-0.5*\cardwidth,-0.5*\cardheight) rectangle (0.5*\cardwidth,0.5*\cardheight)%
+		(-0.5*\cardwidth+#2,-0.5*\cardheight+#2) [rounded corners=#3] -- (0.5*\cardwidth-#2,-0.5*\cardheight+#2) -- %
+		(0.5*\cardwidth-#2,0.5*\cardheight-#2)-- (-0.5*\cardwidth+#2,0.5*\cardheight-#2) -- cycle;%
+}%
 
 \endinput
