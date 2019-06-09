@@ -9,16 +9,36 @@
 \begin{tcard}{creature}%
 	\name{Leeroy Jenkins}%
 	\type{Human}%
-	\addtype{cat}%
+	%\addtype{cat}%
 	\cost{7}%
-	\addabilities{Yelling names}%
-	\addabilities{Yelling names}%
-	\addabilities{Yelling names}%
-	
+	%\addcost{3}%
+	\addability{Yelling names}%
+	\addability{Yelling names}%
+	\addability{Yelling names}%
 \end{tcard}\vskip-1pt
 
 \begin{tcard}{halfsize}%
 \end{tcard}%
+
+\clearpage
+
+\begin{tcard}{pokersize}
+\end{tcard}
+\begin{tcard}{namecard}
+\end{tcard}
+\begin{tcard}{abilitycard}
+	\name{Alistair}
+	\addability{Throwing things}
+\end{tcard}
+
+
+\clearpage
+
+\newtcard{testcard}{\newtcardvar{testvar}{7}}{}
+\begin{tcard}{testcard}
+	\testvar{5}
+\end{tcard}
+%\thetestvar
 
 \clearpage
 
