@@ -3,6 +3,7 @@
 
 % Load needed packages
 \RequirePackage{tikz}
+\usetikzlibrary{calc}
 
 
 % Define main tcard environment
@@ -13,13 +14,7 @@
 	% Define tcard environment functions
 	% \newtcardvar{variable name}{default value}
 	\newcommand\newtcardvar[2]{%
-		\expandafter\newcommand\csname ##1\endcsname[1]{%
-			\expandafter\renewcommand\csname the##1\endcsname{####1}%
-		}%
-		\expandafter\newcommand\csname add##1\endcsname[1]{%
-			\expandafter\g@addto@macro\csname the##1\endcsname{####1}%
-		}%
-		\expandafter\newcommand\csname the##1\endcsname{##2}%
+		\newadvtcardvar{##1}{##2}{}{}%
 	}%
 	% \newadvtcardvar{variable name}{default value}{prepend}{append}
 	\newcommand\newadvtcardvar[4]{%
@@ -65,5 +60,12 @@
 		(-0.5*\cardwidth+#2,-0.5*\cardheight+#2) [rounded corners=#3] -- (0.5*\cardwidth-#2,-0.5*\cardheight+#2) -- %
 		(0.5*\cardwidth-#2,0.5*\cardheight-#2)-- (-0.5*\cardwidth+#2,0.5*\cardheight-#2) -- cycle;%
 }%
+
+
+% \draw (-1.1in, -0.3) rectangle (1.1in, -1.6) node[midway,draw=red,text depth=0] {\begin{minipage}[b][1.3in][b]{2.2in}\theabilities\vskip0pt\end{minipage}};%
+\newcommand\pagenode[3]{%
+	\path let \p{A} = (#1), \p{B} = (#2), \p{dims} = ({abs(\x{B}-\x{A})},{abs(\y{B}-\y{A})}) in (\p{A}) rectangle (\p{B}) node[midway,text depth=0,draw=red] {\begin{minipage}[b][\y{dims}][b]{\x{dims}}#3\end{minipage}};
+}%
+
 
 \endinput

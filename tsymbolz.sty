@@ -3,14 +3,11 @@
 
 \RequirePackage{tikz}
 
-\newsavebox{\@tmpxbox}
-\savebox{\@tmpxbox}{X}
-
 \newlength{\tsymbolsize}
-\setlength\tsymbolsize{\ht\@tmpxbox}
+\settoheight{\tsymbolsize}{X}
 
 \newcommand\setsymbolsize[1]{\setlength\tsymbolsize{#1}}
-\newcommand\setsymbolsizetofont{\savebox{\@tmpxbox}{X}\setlength\tsymbolsize{\ht\@tmpxbox}}
+\newcommand\setsymbolsizetofont{\settoheight{\tsymbolsize}{X}}
 
 \newcommand\symbolbox{\tikz[x=\tsymbolsize,y=\tsymbolsize] \fill (-0.5,-0.5) rectangle (0.5,0.5);}
 

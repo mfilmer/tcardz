@@ -48,8 +48,12 @@
 	\draw[line width=0.025in,rounded corners=0.1in] (-1.15in,1.4in) rectangle (1.15in, 1.65in) node[midway] {\thename};%
 	\path (-1.05in,1.4in) rectangle (1.05in, 1.65in) node[text width=2.1in, align=right, midway] {\thecost};%
 	\draw (-1.1, -0.2) rectangle (1.1, 0.2) node[midway] {\thetype};%
-	\draw (-1.1in, -0.3) rectangle (1.1in, -1.6) node[midway,draw=red,text depth=0] {\begin{minipage}[b][1.3in][b]{2.2in}\theabilities\vskip0pt\end{minipage}};%
+	%\draw (-1.1in, -0.3) rectangle (1.1in, -1.6) node[midway,draw=red,text depth=0] {\begin{minipage}[b][1.3in][b]{2.2in}\theabilities\vskip0pt\end{minipage}};%
+	\draw (-1.1in, -0.3) rectangle (1.1in, -1.6);%
+	\pagenode{-1.1in,-0.3in}{1.1in,-1.6in}{test text}%
 }%
+
+% TODO: Add a command that simplifies making a node that exactly fits an included minipage
 
 
 \endinput
